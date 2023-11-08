@@ -38,10 +38,10 @@ def get_page_data(driver, url, user_intent, actions_folder="screenshots"):
 def main():
     driver = Bot()
     driver.go_to_page("https://www.google.com")
-    time.sleep(5)
+    driver.capture()
 
     # Prompt the user for their intent
-    user_objective = input("Please enter your objective: ")
+    # user_objective = input("Please enter your objective: ")
 
     # screenshot, html_source = get_page_data(driver, url, user_intent)
     # print(html_source)  # Optionally print the HTML source of the page
