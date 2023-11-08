@@ -4,7 +4,7 @@ import time
 import openai
 from dotenv import load_dotenv
 
-from bot import Bot
+from vimbot import Vimbot
 from vision import step
 
 load_dotenv()
@@ -21,10 +21,6 @@ def get_page_data(driver, url, user_intent, actions_folder="screenshots"):
     driver.save_screenshot(screenshot_path)
     print(f"Screenshot saved to {screenshot_path}")
 
-    # Get the HTML source
-    html_source = driver.page_source
-    print(html_source)
-
     # Here you would call the real GPT API and get the actions
     # For now, we'll use a mock response based on the user's intent
     # actions = step(user_intent)
@@ -32,19 +28,18 @@ def get_page_data(driver, url, user_intent, actions_folder="screenshots"):
     # Perform actions as instructed by the GPT response
     # perform_actions(driver, actions)
 
-    return screenshot_path, html_source
+    return screenshot_path
 
 
 def main():
-    driver = Bot()
-    driver.go_to_page("https://www.google.com")
-    driver.capture()
-
     # Prompt the user for their intent
-    # user_objective = input("Please enter your objective: ")
+    user_objective = input("Please enter your objective: ")
+
+    driver = Vimbot()
+    driver.go_to_page("https://www.google.com")
+    driver.capture("screenshot.png")
 
     # screenshot, html_source = get_page_data(driver, url, user_intent)
-    # print(html_source)  # Optionally print the HTML source of the page
 
     driver.quit()
 
