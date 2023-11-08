@@ -26,15 +26,13 @@ class Vimbot:
         self.page = self.context.new_page()
         self.page.set_viewport_size({"width": 1280, "height": 1080})
 
-    def perform_actions(self, actions):
-        # actions is a piece of json from the openai api
-        for action in actions:
-            if action["type"] == "text":
-                self.type(action["text"], submit=True)
-            elif action["type"] == "key":
-                self.page.keyboard.press(action["key"])
-            elif action["type"] == "click":
-                self.page.click(action["selector"])
+    def perform_action(self, action):
+        if "navigate" in action:
+            self.navigate(action["navigate"])
+        elif "type" in action:
+            self.type(action["type"])
+        elif "click" in action:
+            self.click(action["click"])
 
     def navigate(self, url):
         self.page.goto(url=url if "://" in url else "https://" + url, timeout=60000)

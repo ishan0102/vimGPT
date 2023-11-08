@@ -31,7 +31,7 @@ def get_actions(screenshot, objective):
                 "content": [
                     {
                         "type": "text",
-                        "text": f"You need to choose which action to take to help a user do this task: {objective}. Your options are navigate, type, and click. Navigate should take you to the specified URL. Type and click take strings where if you want to click on an object, return the string with the yellow character sequence you want to click on, and to type just a string with the message you want to type. You must respond in JSON only with no other fluff or bad things will happen. The JSON keys must ONLY be one of navigate, type, or click.",
+                        "text": f"You need to choose which action to take to help a user do this task: {objective}. Your options are navigate, type, and click. Navigate should take you to the specified URL. Type and click take strings where if you want to click on an object, return the string with the yellow character sequence you want to click on, and to type just a string with the message you want to type. You must respond in JSON only with no other fluff or bad things will happen. The JSON keys must ONLY be one of navigate, type, or click. Do not return the JSON inside a code block.",
                     },
                     {
                         "type": "image_url",
@@ -45,8 +45,9 @@ def get_actions(screenshot, objective):
         max_tokens=100,
     )
 
-    print(response.choices[0])
+    json_response = json.loads(response.choices[0]["message"]["content"])
+    return json_response
 
 
 if __name__ == "__main__":
-    get_actions(Image.open("screenshot.png"), "navigate to engblogs.dev")
+    get_actions(Image.open("image.png"), "upvote the pinterest post")
