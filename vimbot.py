@@ -1,7 +1,4 @@
-import base64
-import datetime
-import io
-import os
+from io import BytesIO
 
 from PIL import Image
 from playwright.sync_api import sync_playwright
@@ -54,12 +51,5 @@ class Vimbot:
         self.page.keyboard.press("Escape")
         self.page.keyboard.type("f")
 
-        screenshot = Image.open(io.BytesIO(self.page.screenshot())).convert("RGB")
-        if not os.path.exists("screenshots"):
-            os.makedirs("screenshots")
-
-        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
-        filename = f"screenshot_{timestamp}.png"
-        with open(os.path.join("screenshots", filename), "wb") as f:
-            f.write(screenshot)
-        return filename
+        screenshot = Image.open(BytesIO(self.page.screenshot())).convert("RGB")
+        return screenshot

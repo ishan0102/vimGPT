@@ -1,33 +1,28 @@
 import base64
+import json
 import os
+from io import BytesIO
 
 import openai
 from dotenv import load_dotenv
-from pydantic import BaseModel
+from PIL import Image
 
 load_dotenv()
 openai.api_key = os.getenv("OPENAI_API_KEY")
-
-
-class Action(BaseModel):
-    navigate: str = None
-    type: str = None
-    click: str = None
-    complete: bool = False
-
-
-class Actions(BaseModel):
-    actions: list[Action]
+IMG_RES = 1080
 
 
 # Function to encode the image
-def encode_and_resize(filename, width):
-    with open(os.path.join("screenshots", filename), "rb") as image_file:
-        return base64.b64encode(image_file.read()).decode("utf-8")
+def encode_and_resize(image):
+    W, H = image.size
+    image = image.resize((IMG_RES, int(IMG_RES * H / W)))
+    buffer = BytesIO()
+    image.save(buffer, format="PNG")
+    return base64.b64encode(buffer.getvalue()).decode("utf-8")
 
 
-def get_actions(screenshot_filename, objective):
-    encoded_screenshot = encode_and_resize(screenshot_filename)
+def get_actions(screenshot, objective):
+    encoded_screenshot = encode_and_resize(screenshot)
     response = openai.ChatCompletion.create(
         model="gpt-4-vision-preview",
         messages=[
@@ -36,7 +31,7 @@ def get_actions(screenshot_filename, objective):
                 "content": [
                     {
                         "type": "text",
-                        "text": "You are shown a browser screenshot with yellow symbols indicating the locations of clickable items. What is the character sequence of the symbol that would allow us to {objective}?}",
+                        "text": f"You need to choose which action to take to help a user do this task: {objective}. Your options are navigate, type, and click. Navigate should take you to the specified URL. Type and click take strings where if you want to click on an object, return the string with the yellow character sequence you want to click on, and to type just a string with the message you want to type. You must respond in JSON only with no other fluff or bad things will happen. The JSON keys must ONLY be one of navigate, type, or click.",
                     },
                     {
                         "type": "image_url",
@@ -53,22 +48,5 @@ def get_actions(screenshot_filename, objective):
     print(response.choices[0])
 
 
-def get_actions_mock(encoded_screenshot):
-    return [
-        {
-            "type": "text",
-            "text": "What’s in this image?",
-        },
-        {
-            "type": "image_url",
-            "image_url": f"data:image/jpeg;base64,{encoded_screenshot}",
-        },
-        {
-            "type": "text",
-            "text": "It's a picture of a cat.",
-        },
-    ]
-
-
 if __name__ == "__main__":
-    get_actions("image.png", "go to engblogs github")
+    get_actions(Image.open("screenshot.png"), "navigate to engblogs.dev")
