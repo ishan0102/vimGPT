@@ -8,7 +8,6 @@ vimium_path = "./vimium-master"
 
 class Vimbot:
     def __init__(self, headless=False):
-        print("Starting Vimbot...")
         self.context = (
             sync_playwright()
             .start()
@@ -42,7 +41,7 @@ class Vimbot:
         self.page.keyboard.press("Enter")
 
     def click(self, text):
-        self.page.type(text)
+        self.page.keyboard.type(text)
 
     def capture(self):
         # capture a screenshot with vim bindings on the screen

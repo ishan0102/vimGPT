@@ -18,7 +18,8 @@ def encode_and_resize(image):
     image = image.resize((IMG_RES, int(IMG_RES * H / W)))
     buffer = BytesIO()
     image.save(buffer, format="PNG")
-    return base64.b64encode(buffer.getvalue()).decode("utf-8")
+    encoded_image = base64.b64encode(buffer.getvalue()).decode("utf-8")
+    return encoded_image
 
 
 def get_actions(screenshot, objective):
@@ -46,8 +47,10 @@ def get_actions(screenshot, objective):
     )
 
     json_response = json.loads(response.choices[0]["message"]["content"])
+    print(f"JSON Response: {json_response}")
     return json_response
 
 
 if __name__ == "__main__":
-    get_actions(Image.open("image.png"), "upvote the pinterest post")
+    image = Image.open("image.png")
+    actions = get_actions(image, "upvote the pinterest post")
