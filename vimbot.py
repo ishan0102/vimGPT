@@ -1,5 +1,9 @@
 import base64
+import datetime
+import io
+import os
 
+from PIL import Image
 from playwright.sync_api import sync_playwright
 
 vimium_path = "./vimium-master"
@@ -25,24 +29,37 @@ class Vimbot:
         self.page = self.context.new_page()
         self.page.set_viewport_size({"width": 1280, "height": 1080})
 
+    def perform_actions(self, actions):
+        # actions is a piece of json from the openai api
+        for action in actions:
+            if action["type"] == "text":
+                self.type(action["text"], submit=True)
+            elif action["type"] == "key":
+                self.page.keyboard.press(action["key"])
+            elif action["type"] == "click":
+                self.page.click(action["selector"])
+
     def navigate(self, url):
         self.page.goto(url=url if "://" in url else "https://" + url, timeout=60000)
 
-    def type(self, text, submit=False):
+    def type(self, text):
         self.page.keyboard.type(text)
-        if submit:
-            self.page.keyboard.press("Enter")
+        self.page.keyboard.press("Enter")
 
     def click(self, text):
         self.page.type(text)
 
-    def capture(self, path):
+    def capture(self):
         # capture a screenshot with vim bindings on the screen
         self.page.keyboard.press("Escape")
         self.page.keyboard.type("f")
 
-        screenshot = self.page.screenshot()
-        with open(path, "wb") as f:
+        screenshot = Image.open(io.BytesIO(self.page.screenshot())).convert("RGB")
+        if not os.path.exists("screenshots"):
+            os.makedirs("screenshots")
+
+        timestamp = datetime.datetime.now().strftime("%Y%m%d_%H%M%S")
+        filename = f"screenshot_{timestamp}.png"
+        with open(os.path.join("screenshots", filename), "wb") as f:
             f.write(screenshot)
-        encoded = base64.b64encode(screenshot).decode("utf-8")
-        return encoded
+        return filename
