@@ -1,3 +1,5 @@
+import time
+
 import vision
 from vimbot import Vimbot
 
@@ -9,21 +11,16 @@ def main():
     print("Navigating to Google...")
     driver.navigate("https://www.google.com")
 
+    objective = input("Please enter your objective: ")
     while True:
-        objective = input("Please enter your objective: ")
-
+        time.sleep(1)
         print("Capturing the screen...")
         screenshot = driver.capture()
 
         print("Getting actions for the given objective...")
         action = vision.get_actions(screenshot, objective)
-
-        if action:
-            print(f"Action determined: {action}")
-            print("Performing the action...")
-            driver.perform_action(action)
-        else:
-            print("No action could be determined.")
+        if driver.perform_action(action):  # returns True if done
+            break
 
 
 if __name__ == "__main__":
