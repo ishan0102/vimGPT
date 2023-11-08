@@ -24,7 +24,7 @@ def encode_and_resize(image):
 
 def get_actions(screenshot, objective):
     encoded_screenshot = encode_and_resize(screenshot)
-    response = openai.ChatCompletion.create(
+    response = openai.chat.completions.create(
         model="gpt-4-vision-preview",
         messages=[
             {
@@ -46,7 +46,7 @@ def get_actions(screenshot, objective):
         max_tokens=100,
     )
 
-    json_response = json.loads(response.choices[0]["message"]["content"])
+    json_response = json.loads(response.choices[0].message.content)
     print(f"JSON Response: {json_response}")
     return json_response
 
