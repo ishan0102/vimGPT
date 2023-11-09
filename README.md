@@ -22,13 +22,13 @@ Download Vimium locally (have to load the extension manually when running Playwr
 ## Ideas
 Feel free to collaborate with me on this, I have a number of ideas:
 - Use [Assistant API](https://platform.openai.com/docs/assistants/overview) once it's released for automatic context retrieval. The Assistant API will create a thread that we can add messages too, to keep the history of actions, but it doesn't support the Vision API yet.
-- Vimium fork for overlaying elements. A specialized version of Vimium that selectively overlays elements based on context could be useful. Might be worth testing if different sized boxes/colors help.
+- Vimium fork for overlaying elements. A specialized version of Vimium that selectively overlays elements based on context could be useful, effectively pruning based on the user query. Might be worth testing if different sized boxes/colors help.
 - Use higher resolution images, as it seems to fail at low res. I noticed that below a certain threshold, the model wouldn't detect anything. This might be improved by using higher resolution images but that would require more tokens.
-- Fine-tune [LLaVa](https://github.com/haotian-liu/LLaVA) to do this. Could be faster/cheaper.
+- Fine-tune [LLaVa](https://github.com/haotian-liu/LLaVA) or [CogVLM](https://github.com/THUDM/CogVLM) to do this. Could be faster/cheaper. CogVLM can accurately specify pixel coordinates which may be a good way to augment this.
 - Use JSON mode once it's released for Vision API. Currently the Vision API doesn't support JSON mode or function calling, so we have to rely on more primitive prompting methods.
 - Have the Vision API return general instructions, formalized by another call to the JSON mode version of the API. This is a workaround for the JSON mode issue but requires another LLM call, which is slower/more expensive.
 - Add speech-to-text with Whisper or another model to eliminate text input and make this more accessible.
-- Make this work for your own browser instead of spinning up an artificial one.
+- Make this work for your own browser instead of spinning up an artificial one. I want to be able to order food with my credit card.
 
 ## References
 - https://github.com/Globe-Engineer/globot
