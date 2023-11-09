@@ -27,6 +27,8 @@ Feel free to collaborate with me on this, I have a number of ideas:
 - Fine-tune [LLaVa](https://github.com/haotian-liu/LLaVA) to do this. Could be faster/cheaper.
 - Use JSON mode once it's released for Vision API. Currently the Vision API doesn't support JSON mode or function calling, so we have to rely on more primitive prompting methods.
 - Have the Vision API return general instructions, formalized by another call to the JSON mode version of the API. This is a workaround for the JSON mode issue but requires another LLM call, which is slower/more expensive.
+- Add speech-to-text with Whisper or another model to eliminate text input and make this more accessible.
+- Make this work for your own browser instead of spinning up an artificial one.
 
 ## References
 - https://github.com/Globe-Engineer/globot
