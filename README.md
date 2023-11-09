@@ -29,6 +29,8 @@ Feel free to collaborate with me on this, I have a number of ideas:
 - Have the Vision API return general instructions, formalized by another call to the JSON mode version of the API. This is a workaround for the JSON mode issue but requires another LLM call, which is slower/more expensive.
 - Add speech-to-text with Whisper or another model to eliminate text input and make this more accessible.
 - Make this work for your own browser instead of spinning up an artificial one. I want to be able to order food with my credit card.
+- Provide the frames with and without Vimium enabled in case the model can't see what's under the yellow square.
+- Pass the Chrome accessibility tree in as input in addition to the image. This provides a layout of interactive elements that can be mapped to the Vimium bindings.
 
 ## References
 - https://github.com/Globe-Engineer/globot
