@@ -46,8 +46,23 @@ def get_actions(screenshot, objective):
         max_tokens=100,
     )
 
-    json_response = json.loads(response.choices[0].message.content)
-    print(f"JSON Response: {json_response}")
+    try:
+        json_response = json.loads(response.choices[0].message.content)
+    except json.JSONDecodeError:
+        print("Error: Invalid JSON response")
+        cleaned_response = openai.chat.completions.create(
+            model="gpt-3.5-turbo",
+            messages=[
+                {"role": "system", "content": "You are a helpful assistant to fix an invalid JSON response. You need to fix the invalid JSON response to be valid JSON. You must respond in JSON only with no other fluff or bad things will happen. Do not return the JSON inside a code block."},
+                {"role": "user", "content": f"The invalid JSON response is: {response.choices[0].message.content}"}
+            ]
+        )
+        try: cleaned_json_response = json.loads(cleaned_response.choices[0].message.content)
+        except json.JSONDecodeError:
+            print("Error: Invalid JSON response")
+            return {}
+        return cleaned_json_response
+
     return json_response
 
 
