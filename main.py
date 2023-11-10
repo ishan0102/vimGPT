@@ -19,6 +19,7 @@ def main():
 
         print("Getting actions for the given objective...")
         action = vision.get_actions(screenshot, objective)
+        print(f"JSON Response: {action}")
         if driver.perform_action(action):  # returns True if done
             break
 
