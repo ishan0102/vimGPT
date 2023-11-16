@@ -33,6 +33,7 @@ Feel free to collaborate with me on this, I have a number of ideas:
 - Pass the Chrome accessibility tree in as input in addition to the image. This provides a layout of interactive elements that can be mapped to the Vimium bindings.
 - Have it write longer things based on the context of the page or return information to the user based on the query. Examples are replying to an email, summarizing a news article, etc. Visual question answering.
 - Make this a useful tool for blind people by adding voice mode and a key that creates an Assistant API for a given page. Something where you can "speak to an agent" about a page content in natural language.
+- Use Javascript to label DOM elements with colored boxes, similar to [this](https://x.com/DivGarg9/status/1659270501498523648?s=20).
 
 ## References
 - https://github.com/Globe-Engineer/globot
