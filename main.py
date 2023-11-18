@@ -1,12 +1,13 @@
 import time
 
 import vision
-from vimbot import Vimbot
+from vimbot import Vimbot, get_chrome_user_data_dir
 
 
 def main():
     print("Initializing the Vimbot driver...")
-    driver = Vimbot()
+    user_data_dir = get_chrome_user_data_dir()
+    driver = Vimbot(user_data_dir=user_data_dir)
 
     print("Navigating to Google...")
     driver.navigate("https://www.google.com")

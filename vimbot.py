@@ -1,3 +1,5 @@
+import os
+import platform
 import time
 from io import BytesIO
 
@@ -8,21 +10,18 @@ vimium_path = "./vimium-master"
 
 
 class Vimbot:
-    def __init__(self, headless=False):
-        self.context = (
-            sync_playwright()
-            .start()
-            .chromium.launch_persistent_context(
-                "",
-                headless=headless,
-                args=[
-                    f"--disable-extensions-except={vimium_path}",
-                    f"--load-extension={vimium_path}",
-                ],
-                ignore_https_errors=True,
-            )
+    def __init__(self, headless=False, user_data_dir=None):
+        playwright = sync_playwright().start()
+        browser_args = [
+            f"--disable-extensions-except={vimium_path}",
+            f"--load-extension={vimium_path}"
+        ]
+        self.context = playwright.chromium.launch_persistent_context(
+            user_data_dir,  # Specify the user data directory here
+            headless=headless,
+            args=browser_args,
+            ignore_https_errors=True
         )
-
         self.page = self.context.new_page()
         self.page.set_viewport_size({"width": 1080, "height": 720})
 
@@ -57,3 +56,20 @@ class Vimbot:
 
         screenshot = Image.open(BytesIO(self.page.screenshot())).convert("RGB")
         return screenshot
+
+
+def get_chrome_user_data_dir():
+    system = platform.system()
+
+    if system == "Windows":
+        base_path = os.path.join(os.environ['USERPROFILE'], "AppData", "Local", "Google", "Chrome", "User Data")
+    elif system == "Darwin":
+        base_path = os.path.join(os.path.expanduser('~'), "Library", "Application Support", "Google", "Chrome")
+    elif system == "Linux":
+        base_path = os.path.join(os.path.expanduser('~'), ".config", "google-chrome")
+
+    if os.path.exists(base_path):
+        return base_path
+    else:
+        print('User data dir not found')
+        return None
