@@ -8,6 +8,12 @@ LLMs as a way to browse the web is being explored by numerous startups and open-
 
 The issue with this is it's hard to determine what the model wants to click on without giving it the browser DOM as text. [Vimium](https://vimium.github.io/) is a Chrome extension that lets you navigate the web with only your keyboard. I thought it would be interesting to see if we could use Vimium to give the model a way to interact with the web.
 
+## New Feauture
+Voice Mode: Engage with the browser using voice commands. Simply say your objective, and watch vimGPT perform actions in real-time.
+```
+python main.py --voice
+```
+
 ## Setup
 Install Python requirements
 ```
