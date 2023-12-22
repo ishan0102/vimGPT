@@ -8,6 +8,7 @@ h11==0.14.0
 httpcore==1.0.1
 httpx==0.25.1
 idna==3.4
+instructor
 openai==1.1.2
 Pillow==10.1.0
 playwright==1.39.0
