@@ -3,3 +3,5 @@ venv/
 vimium-master/
 screenshot*
 vimGPT/
+.env
+
