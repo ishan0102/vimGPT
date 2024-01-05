@@ -5,6 +5,7 @@ from whisper_mic import WhisperMic
 import vision
 from vimbot import Vimbot
 
+
 def main(voice_mode):
     print("Initializing the Vimbot driver...")
     driver = Vimbot()
@@ -24,14 +25,18 @@ def main(voice_mode):
     else:
         objective = input("Please enter your objective: ")
 
+    
+    prev_action = 'none'
     while True:
         time.sleep(1)
         print("Capturing the screen...")
         screenshot = driver.capture()
 
         print("Getting actions for the given objective...")
-        action = vision.get_actions(screenshot, objective)
+        action = vision.get_actions(screenshot, objective, prev_action)
         print(f"JSON Response: {action}")
+        prev_action = action
+        print('previous action:', prev_action)
         if driver.perform_action(action):  # returns True if done
             break
 
@@ -52,3 +57,4 @@ if __name__ == "__main__":
         main_entry()
     except KeyboardInterrupt:
         print("Exiting...")
+
