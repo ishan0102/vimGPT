@@ -40,6 +40,7 @@ Feel free to collaborate with me on this, I have a number of ideas:
 - Have it write longer things based on the context of the page or return information to the user based on the query. Examples are replying to an email, summarizing a news article, etc. Visual question answering.
 - Make this a useful tool for blind people by adding voice mode and a key that creates an Assistant API for a given page. Something where you can "speak to an agent" about a page content in natural language.
 - Use Javascript to label DOM elements with colored boxes, similar to [this](https://x.com/DivGarg9/status/1659270501498523648?s=20).
+- Build a graph-based retry mechanism that makes sure we aren't falling into cycles, i.e. recursively clicking on the same element.
 
 ## References
 - https://github.com/Globe-Engineer/globot
