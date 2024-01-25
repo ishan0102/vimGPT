@@ -47,6 +47,10 @@ Feel free to collaborate with me on this, I have a number of ideas:
 - Use Javascript to label DOM elements with colored boxes, similar to [this](https://x.com/DivGarg9/status/1659270501498523648?s=20).
 - Build a graph-based retry mechanism that makes sure we aren't falling into cycles, i.e. recursively clicking on the same element.
 
+## Shoutouts
+- HackerNews: https://news.ycombinator.com/item?id=38200308
+- VisualWebArena: Evaluating Multimodal Agents on Realistic Visual Web Tasks (page 9): https://arxiv.org/abs/2401.13649
+
 ## References
 - https://github.com/Globe-Engineer/globot
 - https://github.com/nat/natbot
