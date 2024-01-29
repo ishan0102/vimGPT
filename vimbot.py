@@ -3,8 +3,6 @@ from io import BytesIO
 
 from PIL import Image
 from playwright.sync_api import sync_playwright
-import re
-
 
 vimium_path = "./vimium-master"
 
@@ -28,18 +26,18 @@ class Vimbot:
         self.page = self.context.new_page()
         self.page.set_viewport_size({"width": 1080, "height": 720})
 
-    
-
     def perform_action(self, action):
-        if "done" in action.action:
+        if "done" in action:
             return True
-        if  "type" in action.action:
-            self.click(action.character_string)
-            self.type(action.type_input)
-        if "navigate" in action.action :
-            self.navigate(action.url)
-        elif "click" in action.action:
-            self.click(action.character_string)
+        if "click" in action and "type" in action:
+            self.click(action["click"])
+            self.type(action["type"])
+        if "navigate" in action:
+            self.navigate(action["navigate"])
+        elif "type" in action:
+            self.type(action["type"])
+        elif "click" in action:
+            self.click(action["click"])
 
     def navigate(self, url):
         self.page.goto(url=url if "://" in url else "https://" + url, timeout=60000)
@@ -59,5 +57,3 @@ class Vimbot:
 
         screenshot = Image.open(BytesIO(self.page.screenshot())).convert("RGB")
         return screenshot
-
-

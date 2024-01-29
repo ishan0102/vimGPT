@@ -1,5 +1,6 @@
-import time
 import argparse
+import time
+
 from whisper_mic import WhisperMic
 
 import vision
@@ -25,25 +26,20 @@ def main(voice_mode):
     else:
         objective = input("Please enter your objective: ")
 
-    
-    prev_action = 'none'
     while True:
         time.sleep(1)
         print("Capturing the screen...")
         screenshot = driver.capture()
 
         print("Getting actions for the given objective...")
-        action = vision.get_actions(screenshot, objective, prev_action)
+        action = vision.get_actions(screenshot, objective)
         print(f"JSON Response: {action}")
-        prev_action = action
-        print('previous action:', prev_action)
         if driver.perform_action(action):  # returns True if done
             break
 
+
 def main_entry():
-    parser = argparse.ArgumentParser(
-        description="Run the Vimbot with optional voice input."
-    )
+    parser = argparse.ArgumentParser(description="Run the Vimbot with optional voice input.")
     parser.add_argument(
         "--voice",
         help="Enable voice input mode",
@@ -52,9 +48,9 @@ def main_entry():
     args = parser.parse_args()
     main(args.voice)
 
+
 if __name__ == "__main__":
     try:
         main_entry()
     except KeyboardInterrupt:
         print("Exiting...")
-
