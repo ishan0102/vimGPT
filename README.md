@@ -8,15 +8,26 @@ LLMs as a way to browse the web is being explored by numerous startups and open-
 
 The issue with this is it's hard to determine what the model wants to click on without giving it the browser DOM as text. [Vimium](https://vimium.github.io/) is a Chrome extension that lets you navigate the web with only your keyboard. I thought it would be interesting to see if we could use Vimium to give the model a way to interact with the web.
 
-## Setup
-Install Python requirements
+## Usage
+Install Python requirements:
 ```
 pip install -r requirements.txt
 ```
 
-Download Vimium locally (have to load the extension manually when running Playwright)
+Download Vimium locally (have to load the extension manually when running Playwright):
 ```
 ./setup.sh
+```
+
+Run the script:
+```
+python main.py
+```
+
+## Voice Mode
+Voice Mode: Engage with the browser using voice commands. Simply say your objective, and watch vimGPT perform actions in real-time.
+```
+python main.py --voice
 ```
 
 ## Ideas
@@ -34,6 +45,11 @@ Feel free to collaborate with me on this, I have a number of ideas:
 - Have it write longer things based on the context of the page or return information to the user based on the query. Examples are replying to an email, summarizing a news article, etc. Visual question answering.
 - Make this a useful tool for blind people by adding voice mode and a key that creates an Assistant API for a given page. Something where you can "speak to an agent" about a page content in natural language.
 - Use Javascript to label DOM elements with colored boxes, similar to [this](https://x.com/DivGarg9/status/1659270501498523648?s=20).
+- Build a graph-based retry mechanism that makes sure we aren't falling into cycles, i.e. recursively clicking on the same element.
+
+## Shoutouts
+- HackerNews: https://news.ycombinator.com/item?id=38200308
+- VisualWebArena: Evaluating Multimodal Agents on Realistic Visual Web Tasks (page 9): https://arxiv.org/abs/2401.13649
 
 ## References
 - https://github.com/Globe-Engineer/globot
