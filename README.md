@@ -49,7 +49,8 @@ Feel free to collaborate with me on this, I have a number of ideas:
 
 ## Shoutouts
 - HackerNews: https://news.ycombinator.com/item?id=38200308
-- VisualWebArena: Evaluating Multimodal Agents on Realistic Visual Web Tasks (page 9): https://arxiv.org/abs/2401.13649
+- VisualWebArena - Evaluating Multimodal Agents on Realistic Visual Web Tasks (page 9): https://arxiv.org/abs/2401.13649
+- WIRED: https://www.wired.com/story/fast-forward-tested-next-gen-ai-assistant/
 
 ## References
 - https://github.com/Globe-Engineer/globot
