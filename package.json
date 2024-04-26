@@ -1,0 +1,16 @@
+{
+  "name": "vimgpt",
+  "version": "1.0.0",
+  "description": "Giving multimodal models an interface to play with.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "playwright": "^1.42.1",
+    "replicate": "^0.29.1"
+  }
+}

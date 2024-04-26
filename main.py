@@ -1,11 +1,8 @@
 import argparse
 import time
-
 from whisper_mic import WhisperMic
-
 import vision
 from vimbot import Vimbot
-
 
 def main(voice_mode):
     print("Initializing the Vimbot driver...")
@@ -25,18 +22,17 @@ def main(voice_mode):
         print(f"Objective received: {objective}")
     else:
         objective = input("Please enter your objective: ")
+        model = input("Please enter a model to use (llava, gpt4v, cogvlm, claude): ")
 
     while True:
         time.sleep(1)
         print("Capturing the screen...")
         screenshot = driver.capture()
-
         print("Getting actions for the given objective...")
-        action = vision.get_actions(screenshot, objective)
+        action = vision.get_actions(screenshot, objective, model)
         print(f"JSON Response: {action}")
         if driver.perform_action(action):  # returns True if done
             break
-
 
 def main_entry():
     parser = argparse.ArgumentParser(description="Run the Vimbot with optional voice input.")
@@ -47,7 +43,6 @@ def main_entry():
     )
     args = parser.parse_args()
     main(args.voice)
-
 
 if __name__ == "__main__":
     try:
