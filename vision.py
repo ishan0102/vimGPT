@@ -25,7 +25,7 @@ def encode_and_resize(image):
 def get_actions(screenshot, objective):
     encoded_screenshot = encode_and_resize(screenshot)
     response = openai.chat.completions.create(
-        model="gpt-4-vision-preview",
+        model="gpt-4o",
         messages=[
             {
                 "role": "user",
