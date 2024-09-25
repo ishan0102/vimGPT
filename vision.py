@@ -52,7 +52,7 @@ def get_actions(screenshot, objective):
     except json.JSONDecodeError:
         print("Error: Invalid JSON response")
         cleaned_response = openai.chat.completions.create(
-            model="gpt-3.5-turbo",
+            model="gpt-4o",
             messages=[
                 {
                     "role": "system",
